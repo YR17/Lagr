@@ -14,6 +14,7 @@ public:
 	Part *operator *(double);
 	void operator *=(Part*);
 	void operator *=(double);
+	void operator -();
 	double calculate(double);
 };
 #endif

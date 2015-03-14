@@ -60,6 +60,10 @@ void Part::operator *=(double num){
 	number*=num;
 }
 
+void Part::operator -(){
+	number=-number;
+}
+
 double Part::calculate(double num){
 	for(int c=0;c<pow;c++){
 		num*=num;
