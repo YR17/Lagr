@@ -2,15 +2,15 @@
 using namespace std;
 
 int main(){
-	// Equation x;
-	// cout<<"x+2x3+43x3+1234+x"<<endl;
-	// x = "x+2x3+43x3+1234+x";
-	// x.debug();
-	Part p1, p2;
-	p1.number = 2;
-	p1.pow = 1;
-	p2.number = 3;
-	p2.pow = 1;
-	cout<<(*(p1+&p2)).calculate(1.5)<<endl;
+	Equation x, x1;
+	string s1, s2;
+	cin>>s1;
+	cin>>s2;
+	x = s1;
+	x1 = s2;
+	x*=&x1;
+	x.debug();
+	x.resume();
+	x.debug();
 	return 0;
 }

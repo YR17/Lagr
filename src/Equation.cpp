@@ -1,9 +1,42 @@
 #include <Equation.h>
 using namespace std;
 
+void Equation::clear(){
+	for(int c=0;c<parts.size();c++){
+		parts.erase(parts.begin());
+	}
+}
 
+void Equation::resume(){
+	vector<Part> buffer;
+	int maxPow = 0;
+	for(int c=0;c<parts.size();c++){
+		if(maxPow<parts[c].pow){
+			maxPow = parts[c].pow;
+		}
+	}
+	int minPow = maxPow;
+	for(int c=0;c<parts.size();c++){
+		if(minPow>parts[c].pow){
+			minPow = parts[c].pow;
+		}
+	}
+	for(int c=maxPow;c>minPow-1;c--){
+		Part buf;
+		buf.pow = c;
+		buf.number = 0;
+		for(int c1=0;c1<parts.size();c1++){
+			if(parts[c1].pow==c){
+				buf += &parts[c1];
+			}
+		}
+		buffer.push_back(buf);
+	}
+	parts = buffer;
+}
 
 void Equation::operator =(string str){
+	clear();
 	vector<string> *buffer = new vector<string>;
 	int prevPos = 0;
 	for(int c=0;c<str.length();c++){
@@ -46,10 +79,57 @@ void Equation::operator =(string str){
 		}
 		parts.push_back(buf);
 	}
+	delete buffer;
+}
+
+void Equation::operator +=(Part *ob){
+	parts.push_back(*ob);
+}
+
+void Equation::operator *=(Part *ob){
+	for(int c=0;c<parts.size();c++){
+		parts[c]*=ob;
+	}
+}
+
+void Equation::operator +=(Equation *ob){
+	for(int c=0;c<ob->size();c++){
+		parts.push_back(*(*ob)[c]);
+	}
+}
+
+void Equation::operator *=(Equation *ob){
+	std::vector<Part> buffer;
+	for(int c=0;c<parts.size();c++){
+		for(int c1=0;c1<ob->size();c1++){
+			buffer.push_back(*(parts[c]*(*ob)[c1]));
+		}
+	}
+	parts = buffer;
+}
+
+Part *Equation::operator [](int positon){
+	return &parts[positon];
+}
+
+int Equation::size(){
+	return parts.size();
 }
 
 void Equation::debug(){
 	for(int c=0;c<parts.size();c++){
-		cout<<parts[c].number<<'\t'<<parts[c].pow<<endl;
+		if(parts[c].number==0)continue;
+		else if(c!=0)cout<<'+';
+		if(parts[c].number!=1)cout<<parts[c].number;
+		if(parts[c].pow==0){
+			continue;
+		}
+		if(parts[c].pow==1){
+			cout<<'x';
+			continue;
+		}
+		cout<<"x^"<<parts[c].pow;
 	}
+	cout<<endl;
 }
+
