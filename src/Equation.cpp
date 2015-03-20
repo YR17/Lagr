@@ -2,9 +2,7 @@
 using namespace std;
 
 void Equation::clear(){
-	for(int c=0;c<parts.size();c++){
-		parts.erase(parts.begin());
-	}
+	parts.clear();
 }
 
 void Equation::resume(){
@@ -120,6 +118,7 @@ void Equation::debug(){
 	for(int c=0;c<parts.size();c++){
 		if(parts[c].number==0)continue;
 		else if(c!=0)cout<<'+';
+		if(parts[c].number==1&&parts[c].pow==0)cout<<1;
 		if(parts[c].number!=1)cout<<parts[c].number;
 		if(parts[c].pow==0){
 			continue;

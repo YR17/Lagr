@@ -7,8 +7,8 @@
 
 class Equation{
 	std::vector<Part> parts;
-	void clear();
 public:
+	void clear();
 	void resume();
 	Equation(){};
 	void operator =(std::string);

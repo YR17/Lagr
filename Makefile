@@ -4,8 +4,13 @@ SDIR=src/
 ODIR=obj/
 PREFLAGS=-I$(IDIR)
 
-main: obj obj/Part.o obj/Equation.o
-	$(CC) $(PREFLAGS) $(ODIR)Part.o $(ODIR)Equation.o main.cpp
+all: demo.out lagr.out
+
+demo.out: obj obj/Part.o obj/Equation.o
+	$(CC) $(PREFLAGS) $(ODIR)Part.o $(ODIR)Equation.o main.cpp -o demo.out
+
+lagr.out: obj obj/Part.o obj/Equation.o lagr.cpp
+	$(CC) $(PREFLAGS) $(ODIR)Part.o $(ODIR)Equation.o lagr.cpp -o lagr.out
 
 obj: obj
 	mkdir obj
