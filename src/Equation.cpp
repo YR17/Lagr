@@ -114,20 +114,30 @@ int Equation::size(){
 	return parts.size();
 }
 
-void Equation::debug(){
+double Equation::calculate(double x){
+	double result = 0;
 	for(int c=0;c<parts.size();c++){
-		if(parts[c].number==0)continue;
-		else if(c!=0)cout<<'+';
-		if(parts[c].number==1&&parts[c].pow==0)cout<<1;
-		if(parts[c].number!=1)cout<<parts[c].number;
-		if(parts[c].pow==0){
-			continue;
-		}
-		if(parts[c].pow==1){
-			cout<<'x';
-			continue;
-		}
-		cout<<"x^"<<parts[c].pow;
+		result += parts[c].calculate(x);
+	}
+}
+
+void Equation::debug(){
+	cout<<endl;
+	for(int c=0;c<parts.size();c++){
+		cout<<parts[c].number<<'\t'<<parts[c].pow<<'\t'<<parts[c].denominator<<'\t'<<parts[c].number/parts[c].denominator<<endl;
+		// if(parts[c].number==0)continue;
+		// if(parts[c].number>0)cout<<'+';
+		// if(parts[c].number==1&&parts[c].pow==0)cout<<1;
+		// if(parts[c].denominator!=1)cout<<parts[c].number/parts[c].denominator;
+		// else cout<<parts[c].number;
+		// if(parts[c].pow==0){
+		// 	continue;
+		// }
+		// if(parts[c].pow==1){
+		// 	cout<<'x';
+		// 	continue;
+		// }
+		// cout<<"x^"<<parts[c].pow;
 	}
 	cout<<endl;
 }
